@@ -1,0 +1,64 @@
+import { createSlice } from "@reduxjs/toolkit";
+const initialState={
+    currentuser:null,
+    error:null,
+    loading:false,
+}
+const userSlice=createSlice({
+    name:"user",
+    initialState,
+    reducers:{
+        signinstart:(state)=>{
+            state.loading=true
+        },
+        signinsuccess:(state,action)=>{
+            state.currentuser=action.payload
+            state.loading=false
+            state.error=null
+        },
+        signinfailure:(state,action)=>{
+            state.error=action.payload
+            state.loading=false
+        },
+        updateuserstart:(state)=>{
+            state.loading=true
+        },
+        updateusersuccess:(state,action)=>{
+            state.currentuser=action.payload
+            state.loading=false
+            state.error=null
+        },
+        updateuserfailure:(state,action)=>{
+            state.error=action.payload
+            state.loading=false
+        },
+        deleteuserstart:(state)=>{
+            state.loading=true
+        },
+        deleteusersuccess:(state,action)=>{
+            state.currentuser=null
+            state.loading=false
+            state.error=null
+        },
+        deleteuserfailure:(state,action)=>{
+            state.error=action.payload
+            state.loading=false
+        },
+        signoutstart:(state)=>{
+            state.loading=true
+        },
+        signoutsuccess:(state,action)=>{
+            state.currentuser=null
+            state.loading=false
+            state.error=null
+        },
+        signoutfailure:(state,action)=>{
+            state.error=action.payload
+            state.loading=false
+        }
+    }
+})
+export const  {signinstart,signinfailure,signinsuccess,updateuserstart
+,updateuserfailure,updateusersuccess,deleteuserfailure,deleteuserstart,deleteusersuccess
+,signoutfailure,signoutsuccess,signoutstart}=userSlice.actions
+export default userSlice.reducer
