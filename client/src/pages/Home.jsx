@@ -10,7 +10,7 @@ const Home = () => {
   const [salelistings,setsalelistings]=useState([])
   const[rentlistings,setrentlistings]=useState([])
   SwiperCore.use([Navigation])
-  console.log(offerlistings,rentlistings,salelistings)
+  // console.log(offerlistings,rentlistings,salelistings)
   useEffect(()=>{
     const fetchofferlistings=async()=>{
       try{
@@ -64,7 +64,7 @@ const Home = () => {
         {offerlistings && offerlistings.length>0 && (
           offerlistings.map((listing)=>(
             <SwiperSlide>
-              <div className='h-[550px]' key={listing._id}
+              <div   key={listing._id} className='h-[550px]'
               style={{background:`url(${listing.imageurls[0]})center no-repeat`,backgroundSize:"cover"}}
               ></div>
             </SwiperSlide>
