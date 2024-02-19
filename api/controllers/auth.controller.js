@@ -1,11 +1,11 @@
 import User from "../Models/User.model.js";
-import bcrypt from 'bcrypt'
+import bcryptjs from 'bcryptjs'
 import { errorhandler } from "../utils/error.js";
 import jwt from 'jsonwebtoken'
 
 export const signup=async(req,res,next)=>{
     const{username,email,password}=req.body
-    const hashedpassword=bcrypt.hashSync(password,10)
+    const hashedpassword=bcryptjs.hashSync(password,10)
     try{
         const user=await User.create({
             username,
@@ -23,7 +23,7 @@ export const signin=async(req,res,next)=>{
     try{
        const validuser= await User.findOne({email})
        if(!validuser) return next(errorhandler(404,'User not found!'))
-       const validpassword=bcrypt.compareSync(password,validuser.password)
+       const validpassword=bcryptjs.compareSync(password,validuser.password)
        if(!validpassword) return next(errorhandler(401,"wrong credentials!"))
        const token=jwt.sign({id:validuser._id},process.env.JWT_SECRET)
        const{password:pass,...rest}=validuser._doc
@@ -43,7 +43,7 @@ export const google=async(req,res,next)=>{
         else{
             const generatedpassword=Math.random().toString(36).slice(-8)+
             Math.random().toString(36).slice(-8)
-            const hashedpassword=bcrypt.hashSync(generatedpassword,10)
+            const hashedpassword=bcryptjs.hashSync(generatedpassword,10)
             const user=await  User.create({
                 username:req.body.name.split(" ").join("").toLowerCase()+
                 Math.random().toString(36).slice(-4),

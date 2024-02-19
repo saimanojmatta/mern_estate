@@ -1,5 +1,5 @@
 import User from '../Models/User.model.js'
-import bcrypt from 'bcrypt'
+import bcryptjs from 'bcryptjs'
 import { errorhandler } from '../utils/error.js'
 import Listing from '../Models/Listing.model.js'
 
@@ -11,7 +11,7 @@ export const updateuser=async(req,res,next)=>{
     return next(errorhandler(401,"you can only update your onw account!"))
     try{
         if(req.body.password){
-            req.body.password=bcrypt.hashSync(req.body.password,10)
+            req.body.password=bcryptjs.hashSync(req.body.password,10)
         }
         const updateuser=await User.findByIdAndUpdate(
             req.params.id,
